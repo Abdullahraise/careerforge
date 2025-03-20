@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { CareerRecommendation } from '../data/quizData';
-import { ChevronDown, ChevronUp, BookOpen, Globe, PlayCircle } from 'lucide-react';
+import { ChevronDown, ChevronUp, BookOpen, Globe, PlayCircle, Briefcase, GraduationCap } from 'lucide-react';
 
 interface CareerCardProps {
   career: CareerRecommendation;
@@ -70,7 +70,8 @@ const CareerCard: React.FC<CareerCardProps> = ({ career, rank }) => {
       {expanded && (
         <div className="px-6 pb-6 pt-2 border-t border-gray-100 animate-slide-down">
           <div className="mb-4">
-            <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-2">
+            <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-2 flex items-center">
+              <GraduationCap size={16} className="mr-2" />
               Recommended Courses
             </h4>
             <ul className="space-y-1">
@@ -82,9 +83,27 @@ const CareerCard: React.FC<CareerCardProps> = ({ career, rank }) => {
               ))}
             </ul>
           </div>
+
+          {career.careerOptions && (
+            <div className="mb-4">
+              <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-2 flex items-center">
+                <Briefcase size={16} className="mr-2" />
+                Career Options
+              </h4>
+              <ul className="space-y-1">
+                {career.careerOptions.map((option, index) => (
+                  <li key={index} className="text-gray-700 flex items-center">
+                    <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                    {option}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           
           <div>
-            <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-2">
+            <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-2 flex items-center">
+              <BookOpen size={16} className="mr-2" />
               Learning Resources
             </h4>
             <ul className="space-y-2">

@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { QuizData, Stream, CareerRecommendation, quizQuestions, careerRecommendations } from '../data/quizData';
 
@@ -33,7 +32,6 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     if (selectedStream) {
-      // Filter questions for the selected stream
       const filteredQuestions = quizQuestions.filter(
         q => q.streams.includes(selectedStream)
       );
@@ -72,7 +70,6 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const completeQuiz = () => {
     if (!selectedStream || !questionsForStream) return;
 
-    // Calculate scores for different aspects
     const scores = {
       logical: 0,
       creative: 0,
@@ -88,7 +85,6 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     });
 
-    // Normalize scores
     const totalQuestions = {
       logical: questionsForStream.filter(q => q.aspect === 'logical').length,
       creative: questionsForStream.filter(q => q.aspect === 'creative').length,
@@ -105,11 +101,9 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
       practical: totalQuestions.practical ? scores.practical / (totalQuestions.practical * 5) : 0,
     };
 
-    // Match with careers based on stream and scores
     const matchedCareers = careerRecommendations
       .filter(career => career.streams.includes(selectedStream))
       .map(career => {
-        // Calculate match score
         let matchScore = 0;
         Object.entries(normalizedScores).forEach(([aspect, score]) => {
           matchScore += score * (career.aspects[aspect] || 0);
@@ -121,7 +115,7 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
         };
       })
       .sort((a, b) => b.matchScore - a.matchScore)
-      .slice(0, 5); // Top 5 recommendations
+      .slice(0, 3);
 
     setRecommendations(matchedCareers);
     setQuizCompleted(true);

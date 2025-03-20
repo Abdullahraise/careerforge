@@ -17,6 +17,7 @@ export interface CareerRecommendation {
   matchScore?: number;
   aspects: Partial<Record<Aspect, number>>;
   courses: string[];
+  careerOptions: string[];
   resources: {
     title: string;
     link: string;
@@ -120,310 +121,102 @@ export const quizQuestions: QuizData[] = [
 export const careerRecommendations: CareerRecommendation[] = [
   {
     id: 1,
-    title: "Software Engineer",
-    description: "Design, develop, and maintain software systems and applications that power our digital world.",
-    streams: ['Bio-Comp', 'Comp-Maths'],
+    title: "Arts Stream",
+    description: "Suitable for students interested in creativity, humanities, and social sciences.",
+    streams: ['Arts'],
     aspects: {
-      logical: 0.9,
-      analytical: 0.8,
-      practical: 0.7,
-      creative: 0.6,
-      social: 0.4
-    },
-    courses: [
-      "B.Tech in Computer Science",
-      "B.Sc in Computer Science",
-      "BCA (Bachelor of Computer Applications)"
-    ],
-    resources: [
-      {
-        title: "Roadmap to becoming a developer",
-        link: "https://roadmap.sh",
-        type: "article"
-      },
-      {
-        title: "CS50: Introduction to Computer Science",
-        link: "https://cs50.harvard.edu/x/",
-        type: "course"
-      },
-      {
-        title: "How to Think Like a Programmer",
-        link: "https://www.youtube.com/watch?v=azcrPFhaY9k",
-        type: "video"
-      }
-    ]
-  },
-  {
-    id: 2,
-    title: "Data Scientist",
-    description: "Analyze complex datasets to extract insights and help organizations make data-driven decisions.",
-    streams: ['Bio-Comp', 'Comp-Maths', 'Bio-Maths'],
-    aspects: {
-      analytical: 0.9,
-      logical: 0.8,
-      practical: 0.6,
-      creative: 0.5,
-      social: 0.4
-    },
-    courses: [
-      "B.Tech in Data Science",
-      "B.Sc in Statistics",
-      "B.Sc in Mathematics"
-    ],
-    resources: [
-      {
-        title: "Data Science Roadmap",
-        link: "https://www.kaggle.com/learn",
-        type: "course"
-      },
-      {
-        title: "Introduction to Data Science",
-        link: "https://www.coursera.org/specializations/data-science",
-        type: "course"
-      },
-      {
-        title: "Statistics for Data Science",
-        link: "https://www.youtube.com/watch?v=zouPoc49xbk",
-        type: "video"
-      }
-    ]
-  },
-  {
-    id: 3,
-    title: "Chartered Accountant",
-    description: "Prepare, examine, and ensure accuracy in financial records while providing financial advice to clients.",
-    streams: ['Commerce'],
-    aspects: {
-      analytical: 0.9,
-      logical: 0.8,
-      practical: 0.7,
-      social: 0.5,
-      creative: 0.3
-    },
-    courses: [
-      "B.Com (Bachelor of Commerce)",
-      "BBA with Finance specialization",
-      "Integrated CA course"
-    ],
-    resources: [
-      {
-        title: "CA Foundation Course Overview",
-        link: "https://www.icai.org",
-        type: "article"
-      },
-      {
-        title: "Introduction to Accounting Principles",
-        link: "https://www.coursera.org/learn/financial-accounting",
-        type: "course"
-      },
-      {
-        title: "Career in Chartered Accountancy",
-        link: "https://www.youtube.com/watch?v=3ZyRRDLfBCo",
-        type: "video"
-      }
-    ]
-  },
-  {
-    id: 4,
-    title: "Marketing Manager",
-    description: "Develop marketing strategies to promote products or services and increase brand awareness.",
-    streams: ['Commerce', 'Arts'],
-    aspects: {
-      creative: 0.8,
+      creative: 0.9,
       social: 0.8,
-      analytical: 0.7,
-      practical: 0.6,
-      logical: 0.5
-    },
-    courses: [
-      "BBA in Marketing",
-      "B.Com with Marketing specialization",
-      "BA in Mass Communication"
-    ],
-    resources: [
-      {
-        title: "Marketing Fundamentals",
-        link: "https://www.hubspot.com/marketing",
-        type: "article"
-      },
-      {
-        title: "Digital Marketing Specialization",
-        link: "https://www.coursera.org/specializations/digital-marketing",
-        type: "course"
-      },
-      {
-        title: "Marketing Career Paths Explained",
-        link: "https://www.youtube.com/watch?v=KkC_wYM_Co4",
-        type: "video"
-      }
-    ]
-  },
-  {
-    id: 5,
-    title: "Psychologist",
-    description: "Study human behavior and mental processes to help people overcome challenges and improve wellbeing.",
-    streams: ['Arts', 'Bio-Comp'],
-    aspects: {
-      social: 0.9,
-      analytical: 0.8,
-      logical: 0.6,
-      creative: 0.5,
+      analytical: 0.6,
+      logical: 0.5,
       practical: 0.5
     },
     courses: [
-      "BA in Psychology",
-      "B.Sc in Psychology",
-      "B.Sc in Applied Psychology"
+      "B.A. English Literature",
+      "B.A. Journalism & Mass Communication",
+      "B.A. Psychology",
+      "B.A. Political Science",
+      "B.A. Sociology",
+      "B.A. Fine Arts",
+      "B.A. History",
+      "B.A. Philosophy",
+      "BFA (Bachelor of Fine Arts)",
+      "B.Des (Bachelor of Design)"
+    ],
+    careerOptions: [
+      "Journalist / News Reporter",
+      "Psychologist / Counselor",
+      "Social Worker / NGO Manager",
+      "Historian / Archaeologist",
+      "Political Analyst",
+      "Lawyer (LLB after B.A.)",
+      "Graphic Designer",
+      "Writer / Content Creator",
+      "Photographer / Filmmaker",
+      "Fashion Designer"
     ],
     resources: [
+      {
+        title: "Careers in Liberal Arts",
+        link: "https://www.coursera.org/articles/liberal-arts-degree-jobs",
+        type: "article"
+      },
       {
         title: "Introduction to Psychology",
-        link: "https://www.apa.org/education/undergrad/intro-psychology",
-        type: "article"
-      },
-      {
-        title: "Psychological First Aid",
-        link: "https://www.coursera.org/learn/psychological-first-aid",
+        link: "https://www.edx.org/learn/psychology",
         type: "course"
       },
       {
-        title: "What is Psychology?",
-        link: "https://www.youtube.com/watch?v=vo4pMVb0R6M",
-        type: "video"
-      }
-    ]
-  },
-  {
-    id: 6,
-    title: "Journalist",
-    description: "Research, write, and report news stories for print, broadcast, or digital media platforms.",
-    streams: ['Arts'],
-    aspects: {
-      creative: 0.8,
-      social: 0.8,
-      analytical: 0.7,
-      practical: 0.6,
-      logical: 0.5
-    },
-    courses: [
-      "BA in Journalism",
-      "BA in Mass Communication",
-      "Bachelor of Journalism and Mass Communication"
-    ],
-    resources: [
-      {
-        title: "Principles of Journalism",
-        link: "https://www.spj.org/ethicscode.asp",
-        type: "article"
-      },
-      {
-        title: "Journalism for Social Change",
-        link: "https://www.edx.org/learn/journalism/university-of-california-berkeley-journalism-for-social-change",
-        type: "course"
-      },
-      {
-        title: "Day in the Life of a Journalist",
+        title: "Journalism in the Digital Age",
         link: "https://www.youtube.com/watch?v=qpJuGX42StQ",
         type: "video"
       }
     ]
   },
   {
-    id: 7,
-    title: "Doctor/Physician",
-    description: "Diagnose and treat illnesses, injuries, and other health conditions in patients.",
-    streams: ['Bio-Comp', 'Bio-Maths'],
-    aspects: {
-      analytical: 0.9,
-      practical: 0.9,
-      logical: 0.8,
-      social: 0.8,
-      creative: 0.4
-    },
-    courses: [
-      "MBBS (Bachelor of Medicine and Bachelor of Surgery)",
-      "BDS (Bachelor of Dental Surgery)",
-      "BHMS (Bachelor of Homeopathic Medicine and Surgery)"
-    ],
-    resources: [
-      {
-        title: "Medical School Requirements",
-        link: "https://www.aamc.org/",
-        type: "article"
-      },
-      {
-        title: "Anatomy and Physiology",
-        link: "https://www.edx.org/learn/anatomy",
-        type: "course"
-      },
-      {
-        title: "What's it like to be a Doctor?",
-        link: "https://www.youtube.com/watch?v=sGYeP_8chQU",
-        type: "video"
-      }
-    ]
-  },
-  {
-    id: 8,
-    title: "Graphic Designer",
-    description: "Create visual concepts that communicate ideas and messages for brands and products.",
-    streams: ['Arts'],
-    aspects: {
-      creative: 0.9,
-      practical: 0.7,
-      analytical: 0.5,
-      social: 0.5,
-      logical: 0.4
-    },
-    courses: [
-      "BFA in Graphic Design",
-      "B.Des (Bachelor of Design)",
-      "BA in Visual Communication"
-    ],
-    resources: [
-      {
-        title: "Graphic Design Fundamentals",
-        link: "https://www.canva.com/learn/graphic-design-basics/",
-        type: "article"
-      },
-      {
-        title: "Graphic Design Specialization",
-        link: "https://www.coursera.org/specializations/graphic-design",
-        type: "course"
-      },
-      {
-        title: "Day in the Life of a Graphic Designer",
-        link: "https://www.youtube.com/watch?v=gfHcnig8Lo4",
-        type: "video"
-      }
-    ]
-  },
-  {
-    id: 9,
-    title: "Investment Banker",
-    description: "Help companies and governments raise capital, provide financial advice, and facilitate mergers and acquisitions.",
+    id: 2,
+    title: "Commerce Stream",
+    description: "Suitable for students interested in business, finance, and management.",
     streams: ['Commerce'],
     aspects: {
       analytical: 0.9,
       logical: 0.8,
-      social: 0.7,
-      practical: 0.6,
-      creative: 0.3
+      practical: 0.7,
+      social: 0.6,
+      creative: 0.5
     },
     courses: [
-      "BBA in Finance",
-      "B.Com in Banking and Finance",
-      "BS in Finance"
+      "B.Com (Bachelor of Commerce)",
+      "BBA (Bachelor of Business Administration)",
+      "BBM (Bachelor of Business Management)",
+      "BMS (Bachelor of Management Studies)",
+      "CA (Chartered Accountant)",
+      "CFA (Chartered Financial Analyst)",
+      "CS (Company Secretary)",
+      "BHM (Bachelor of Hotel Management)",
+      "B.Sc in Banking & Finance"
+    ],
+    careerOptions: [
+      "Accountant / Auditor (CA, CMA)",
+      "Investment Banker",
+      "Business Analyst",
+      "Marketing Manager",
+      "Human Resource Manager",
+      "Entrepreneur / Startup Founder",
+      "Stock Market Analyst",
+      "E-Commerce Manager",
+      "Financial Consultant",
+      "Hotel Manager"
     ],
     resources: [
       {
-        title: "Investment Banking Explained",
-        link: "https://corporatefinanceinstitute.com/resources/careers/jobs/investment-banking/",
-        type: "article"
+        title: "Financial Accounting Fundamentals",
+        link: "https://www.coursera.org/learn/financial-accounting",
+        type: "course"
       },
       {
-        title: "Introduction to Financial Markets",
-        link: "https://www.coursera.org/learn/financial-markets-global",
+        title: "Introduction to Marketing",
+        link: "https://www.edx.org/learn/marketing",
         type: "course"
       },
       {
@@ -434,36 +227,200 @@ export const careerRecommendations: CareerRecommendation[] = [
     ]
   },
   {
-    id: 10,
-    title: "Civil Engineer",
-    description: "Design, build, and maintain infrastructure projects such as buildings, roads, bridges, and water systems.",
-    streams: ['Comp-Maths', 'Bio-Maths'],
+    id: 3,
+    title: "Computer Science Stream",
+    description: "Suitable for students interested in technology, software, and data science.",
+    streams: ['Comp-Maths'],
     aspects: {
-      practical: 0.9,
-      analytical: 0.8,
+      logical: 0.9,
+      analytical: 0.9,
+      practical: 0.8,
+      creative: 0.6,
+      social: 0.4
+    },
+    courses: [
+      "B.Tech / B.E. in Computer Science & Engineering",
+      "B.Sc. Computer Science",
+      "BCA (Bachelor of Computer Applications)",
+      "B.Sc. Data Science",
+      "B.Sc. Artificial Intelligence & Machine Learning"
+    ],
+    careerOptions: [
+      "Software Developer",
+      "Data Scientist",
+      "Cybersecurity Analyst",
+      "AI/ML Engineer",
+      "Cloud Computing Engineer",
+      "Ethical Hacker",
+      "Web Developer",
+      "Mobile App Developer",
+      "IT Consultant",
+      "Game Developer"
+    ],
+    resources: [
+      {
+        title: "CS50: Introduction to Computer Science",
+        link: "https://cs50.harvard.edu/x/",
+        type: "course"
+      },
+      {
+        title: "Web Development Roadmap",
+        link: "https://roadmap.sh/frontend",
+        type: "article"
+      },
+      {
+        title: "Introduction to Machine Learning",
+        link: "https://www.youtube.com/watch?v=ua-CiDNNj30",
+        type: "video"
+      }
+    ]
+  },
+  {
+    id: 4,
+    title: "Biology + Computer Science Stream",
+    description: "Suitable for students interested in biotechnology, bioinformatics, and medical technology.",
+    streams: ['Bio-Comp'],
+    aspects: {
+      analytical: 0.9,
       logical: 0.8,
+      practical: 0.7,
       creative: 0.6,
       social: 0.5
     },
     courses: [
-      "B.Tech in Civil Engineering",
-      "BE in Civil Engineering",
-      "B.Sc in Civil Engineering"
+      "B.Tech Biotechnology",
+      "B.Sc. Bioinformatics",
+      "B.Sc. Computational Biology",
+      "B.Sc. Biomedical Engineering",
+      "B.Sc. Genetics",
+      "B.Sc. Microbiology",
+      "B.Sc. Forensic Science",
+      "MBBS (if interested in medicine)"
+    ],
+    careerOptions: [
+      "Bioinformatics Scientist",
+      "Medical Data Analyst",
+      "Genetic Engineer",
+      "Biomedical Researcher",
+      "Forensic Scientist",
+      "Healthcare Software Developer",
+      "Pharmacist",
+      "Medical Lab Technician"
     ],
     resources: [
       {
-        title: "Introduction to Civil Engineering",
-        link: "https://www.asce.org/career-growth/what-is-civil-engineering",
-        type: "article"
-      },
-      {
-        title: "Structural Engineering Basics",
-        link: "https://www.edx.org/learn/structural-engineering",
+        title: "Introduction to Bioinformatics",
+        link: "https://www.coursera.org/learn/bioinformatics",
         type: "course"
       },
       {
-        title: "A Day in the Life of a Civil Engineer",
-        link: "https://www.youtube.com/watch?v=cJaRjI7K-Lw",
+        title: "Genomic Data Science",
+        link: "https://www.edx.org/learn/genomics",
+        type: "course"
+      },
+      {
+        title: "Careers in Biomedical Engineering",
+        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        type: "video"
+      }
+    ]
+  },
+  {
+    id: 5,
+    title: "Biology + Maths Stream",
+    description: "Suitable for students interested in medical sciences, engineering, and life sciences.",
+    streams: ['Bio-Maths'],
+    aspects: {
+      analytical: 0.9,
+      practical: 0.9,
+      logical: 0.8,
+      social: 0.7,
+      creative: 0.5
+    },
+    courses: [
+      "MBBS (Bachelor of Medicine & Surgery)",
+      "BDS (Dentistry)",
+      "BAMS (Ayurveda Medicine)",
+      "BHMS (Homeopathy Medicine)",
+      "B.Sc. Biotechnology",
+      "B.Sc. Biochemistry",
+      "B.Sc. Agriculture",
+      "B.Pharm (Pharmacy)",
+      "B.Tech Biotechnology",
+      "B.Tech Biomedical Engineering"
+    ],
+    careerOptions: [
+      "Doctor (MBBS, BDS)",
+      "Biotechnologist",
+      "Biomedical Engineer",
+      "Pharmacist",
+      "Medical Researcher",
+      "Agricultural Scientist",
+      "Genetic Engineer",
+      "Nutritionist / Dietitian"
+    ],
+    resources: [
+      {
+        title: "Introduction to Human Anatomy",
+        link: "https://www.coursera.org/learn/anatomy",
+        type: "course"
+      },
+      {
+        title: "Preparing for Medical School",
+        link: "https://www.aamc.org/students/aspiring-doctors",
+        type: "article"
+      },
+      {
+        title: "Day in the Life of a Doctor",
+        link: "https://www.youtube.com/watch?v=sGYeP_8chQU",
+        type: "video"
+      }
+    ]
+  },
+  {
+    id: 6,
+    title: "Computer Science + Maths Stream",
+    description: "Suitable for students interested in software, AI, and mathematical modeling.",
+    streams: ['Comp-Maths'],
+    aspects: {
+      logical: 0.9,
+      analytical: 0.9,
+      practical: 0.7,
+      creative: 0.6,
+      social: 0.4
+    },
+    courses: [
+      "B.Tech / B.E. in Computer Science & Engineering",
+      "B.Sc. Mathematics & Computing",
+      "B.Sc. Data Science & AI",
+      "BCA (Bachelor of Computer Applications)",
+      "B.Sc. Statistics"
+    ],
+    careerOptions: [
+      "AI Engineer",
+      "Data Scientist",
+      "Software Developer",
+      "Blockchain Developer",
+      "Cloud Computing Engineer",
+      "Financial Analyst",
+      "Actuarial Scientist",
+      "Statistician",
+      "Business Intelligence Analyst"
+    ],
+    resources: [
+      {
+        title: "Mathematics for Machine Learning",
+        link: "https://www.coursera.org/specializations/mathematics-machine-learning",
+        type: "course"
+      },
+      {
+        title: "Artificial Intelligence Roadmap",
+        link: "https://roadmap.sh/ai-data-scientist",
+        type: "article"
+      },
+      {
+        title: "Statistical Learning",
+        link: "https://www.youtube.com/watch?v=5N9V07EIfIg",
         type: "video"
       }
     ]

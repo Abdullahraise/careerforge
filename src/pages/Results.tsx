@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../context/QuizContext';
 import Header from '../components/Header';
 import CareerCard from '../components/CareerCard';
-import { ArrowRight, RefreshCcw } from 'lucide-react';
+import { ArrowRight, RefreshCcw, BookOpen } from 'lucide-react';
 
 const Results = () => {
   const navigate = useNavigate();
@@ -41,6 +41,14 @@ const Results = () => {
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto animate-slide-down">
             Based on your {selectedStream} stream selection and quiz responses, we've identified the following career paths that align with your strengths and interests.
           </p>
+          <div className="flex justify-center mb-8">
+            <div className="bg-blue-50 p-4 rounded-lg max-w-lg text-center">
+              <BookOpen className="mx-auto text-blue-600 mb-2" size={24} />
+              <p className="text-sm text-gray-600">
+                Click on each recommendation to explore suggested courses, career options, and learning resources.
+              </p>
+            </div>
+          </div>
         </div>
         
         <div className="space-y-6 mb-12">
