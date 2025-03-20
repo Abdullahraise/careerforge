@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuiz } from '../context/QuizContext';
 import { ArrowRight, BookOpen, Award, LineChart, Compass } from 'lucide-react';
@@ -7,10 +6,15 @@ import Header from '../components/Header';
 
 const Index = () => {
   const { resetQuiz } = useQuiz();
+  const howItWorksRef = useRef<HTMLElement>(null);
 
   React.useEffect(() => {
     resetQuiz();
   }, [resetQuiz]);
+
+  const scrollToHowItWorks = () => {
+    howItWorksRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -42,7 +46,10 @@ const Index = () => {
                     <ArrowRight className="ml-2" size={18} />
                   </Link>
                   
-                  <button className="border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 rounded-lg px-8 py-4 text-center font-semibold transition-colors">
+                  <button 
+                    className="border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 rounded-lg px-8 py-4 text-center font-semibold transition-colors"
+                    onClick={scrollToHowItWorks}
+                  >
                     Learn More
                   </button>
                 </div>
@@ -65,7 +72,7 @@ const Index = () => {
       </section>
       
       {/* Features Section */}
-      <section className="py-16 px-4 md:px-0">
+      <section ref={howItWorksRef} className="py-16 px-4 md:px-0">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How It Works</h2>

@@ -73,6 +73,54 @@ const Quiz = () => {
   const currentAnswer = currentQuestionData ? answers[currentQuestionData.id] : undefined;
   const isLastQuestion = questionsForStream && currentQuestion === questionsForStream.length - 1;
 
+  const streamIcons = {
+    'Bio-Comp': {
+      bg: 'bg-purple-100',
+      text: 'text-purple-600',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+        </svg>
+      )
+    },
+    'Bio-Maths': {
+      bg: 'bg-blue-100',
+      text: 'text-blue-600',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9M19.1 4.9C23 8.8 23 15.2 19.1 19.1M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" />
+        </svg>
+      )
+    },
+    'Comp-Maths': {
+      bg: 'bg-indigo-100',
+      text: 'text-indigo-600',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+      )
+    },
+    'Commerce': {
+      bg: 'bg-green-100',
+      text: 'text-green-600',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      )
+    },
+    'Arts': {
+      bg: 'bg-pink-100',
+      text: 'text-pink-600',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+        </svg>
+      )
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <Header />
@@ -87,7 +135,7 @@ const Quiz = () => {
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              {(['Science', 'Commerce', 'Arts'] as Stream[]).map((stream) => (
+              {(['Bio-Comp', 'Bio-Maths', 'Comp-Maths', 'Commerce', 'Arts'] as Stream[]).map((stream) => (
                 <button
                   key={stream}
                   className={`p-6 rounded-xl border-2 transition-all ${
@@ -98,27 +146,9 @@ const Quiz = () => {
                   onClick={() => handleStreamSelect(stream)}
                 >
                   <div className="flex justify-center items-center h-12 mb-4">
-                    {stream === 'Science' && (
-                      <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                        </svg>
-                      </div>
-                    )}
-                    {stream === 'Commerce' && (
-                      <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                    )}
-                    {stream === 'Arts' && (
-                      <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                        </svg>
-                      </div>
-                    )}
+                    <div className={`w-12 h-12 ${streamIcons[stream].bg} rounded-full flex items-center justify-center`}>
+                      {streamIcons[stream].icon}
+                    </div>
                   </div>
                   <h3 className="font-semibold text-lg text-center">{stream}</h3>
                 </button>
@@ -214,3 +244,4 @@ const Quiz = () => {
 };
 
 export default Quiz;
+

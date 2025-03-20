@@ -1,5 +1,4 @@
-
-export type Stream = 'Science' | 'Commerce' | 'Arts';
+export type Stream = 'Bio-Comp' | 'Bio-Maths' | 'Comp-Maths' | 'Commerce' | 'Arts';
 
 export type Aspect = 'logical' | 'creative' | 'social' | 'analytical' | 'practical';
 
@@ -29,31 +28,31 @@ export const quizQuestions: QuizData[] = [
   {
     id: 1,
     question: "How much do you enjoy solving complex mathematical problems?",
-    streams: ['Science', 'Commerce'],
+    streams: ['Bio-Maths', 'Comp-Maths', 'Commerce'],
     aspect: 'logical'
   },
   {
     id: 2,
     question: "Do you find yourself drawn to creating art or expressing yourself creatively?",
-    streams: ['Arts', 'Science'],
+    streams: ['Arts', 'Bio-Comp'],
     aspect: 'creative'
   },
   {
     id: 3,
     question: "How comfortable are you analyzing financial data and economic trends?",
-    streams: ['Commerce'],
+    streams: ['Commerce', 'Comp-Maths'],
     aspect: 'analytical'
   },
   {
     id: 4,
     question: "Do you enjoy helping others and working directly with people?",
-    streams: ['Arts', 'Science', 'Commerce'],
+    streams: ['Arts', 'Bio-Comp', 'Bio-Maths', 'Commerce'],
     aspect: 'social'
   },
   {
     id: 5,
     question: "How interested are you in understanding how physical objects and systems work?",
-    streams: ['Science'],
+    streams: ['Bio-Maths', 'Comp-Maths'],
     aspect: 'practical'
   },
   {
@@ -65,7 +64,7 @@ export const quizQuestions: QuizData[] = [
   {
     id: 7,
     question: "Are you interested in conducting experiments and testing hypotheses?",
-    streams: ['Science'],
+    streams: ['Bio-Comp', 'Bio-Maths'],
     aspect: 'analytical'
   },
   {
@@ -77,13 +76,13 @@ export const quizQuestions: QuizData[] = [
   {
     id: 9,
     question: "Do you enjoy building or fixing things with your hands?",
-    streams: ['Science'],
+    streams: ['Bio-Comp', 'Comp-Maths'],
     aspect: 'practical'
   },
   {
     id: 10,
     question: "How interested are you in analyzing human behavior and society?",
-    streams: ['Arts', 'Science'],
+    streams: ['Arts', 'Bio-Comp'],
     aspect: 'analytical'
   },
   {
@@ -95,19 +94,19 @@ export const quizQuestions: QuizData[] = [
   {
     id: 12,
     question: "How much do you enjoy debates and logical arguments?",
-    streams: ['Arts', 'Science', 'Commerce'],
+    streams: ['Arts', 'Comp-Maths', 'Commerce'],
     aspect: 'logical'
   },
   {
     id: 13,
     question: "Are you interested in designing solutions to visual problems?",
-    streams: ['Arts', 'Science'],
+    streams: ['Arts', 'Comp-Maths'],
     aspect: 'creative'
   },
   {
     id: 14,
     question: "How comfortable are you with working with computer programs and technology?",
-    streams: ['Science', 'Commerce'],
+    streams: ['Comp-Maths', 'Bio-Comp', 'Commerce'],
     aspect: 'practical'
   },
   {
