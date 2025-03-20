@@ -1,14 +1,15 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../context/QuizContext';
 import Header from '../components/Header';
 import CareerCard from '../components/CareerCard';
-import { ArrowRight, RefreshCcw, BookOpen } from 'lucide-react';
+import { ArrowRight, RefreshCcw, BookOpen, ChevronDown } from 'lucide-react';
 
 const Results = () => {
   const navigate = useNavigate();
   const { quizCompleted, recommendations, selectedStream, resetQuiz } = useQuiz();
+  const [showAllRecommendations, setShowAllRecommendations] = useState(false);
 
   // Redirect if the user tries to access results without completing the quiz
   useEffect(() => {
@@ -25,6 +26,11 @@ const Results = () => {
     resetQuiz();
     navigate('/quiz');
   };
+
+  // Display top 3 recommendations by default
+  const displayedRecommendations = showAllRecommendations 
+    ? recommendations 
+    : recommendations.slice(0, 3);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -45,19 +51,31 @@ const Results = () => {
             <div className="bg-blue-50 p-4 rounded-lg max-w-lg text-center">
               <BookOpen className="mx-auto text-blue-600 mb-2" size={24} />
               <p className="text-sm text-gray-600">
-                Click on each recommendation to explore suggested courses, career options, and learning resources.
+                Click on each recommendation to explore suggested courses and career options.
               </p>
             </div>
           </div>
         </div>
         
-        <div className="space-y-6 mb-12">
-          {recommendations.map((career, index) => (
+        <div className="space-y-6 mb-8">
+          {displayedRecommendations.map((career, index) => (
             <div key={career.id} className="animate-slide-up" style={{ animationDelay: `${index * 0.1}s` }}>
               <CareerCard career={career} rank={index + 1} />
             </div>
           ))}
         </div>
+        
+        {!showAllRecommendations && recommendations.length > 3 && (
+          <div className="text-center mb-12">
+            <button 
+              onClick={() => setShowAllRecommendations(true)}
+              className="flex items-center justify-center mx-auto px-6 py-3 text-blue-600 hover:text-blue-700 transition-colors"
+            >
+              Show All Recommendations
+              <ChevronDown className="ml-2" size={18} />
+            </button>
+          </div>
+        )}
         
         <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
           <button 

@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { CareerRecommendation } from '../data/quizData';
-import { ChevronDown, ChevronUp, BookOpen, Globe, PlayCircle, Briefcase, GraduationCap } from 'lucide-react';
+import { ChevronDown, ChevronUp, BookOpen, Globe, PlayCircle, Briefcase, GraduationCap, ExternalLink } from 'lucide-react';
 
 interface CareerCardProps {
   career: CareerRecommendation;
@@ -25,6 +25,14 @@ const CareerCard: React.FC<CareerCardProps> = ({ career, rank }) => {
   const matchPercentage = career.matchScore 
     ? Math.round(career.matchScore * 100) 
     : 75 + Math.floor(Math.random() * 20); // Fallback if no score
+  
+  // Limit the number of displayed items
+  const displayedCourses = career.courses.slice(0, 4);
+  const displayedCareerOptions = career.careerOptions.slice(0, 4);
+  const displayedResources = career.resources.slice(0, 3);
+  
+  const hasMoreCourses = career.courses.length > 4;
+  const hasMoreCareerOptions = career.careerOptions.length > 4;
   
   return (
     <div 
@@ -72,15 +80,20 @@ const CareerCard: React.FC<CareerCardProps> = ({ career, rank }) => {
           <div className="mb-4">
             <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-2 flex items-center">
               <GraduationCap size={16} className="mr-2" />
-              Recommended Courses
+              Top Recommended Courses
             </h4>
             <ul className="space-y-1">
-              {career.courses.map((course, index) => (
+              {displayedCourses.map((course, index) => (
                 <li key={index} className="text-gray-700 flex items-center">
                   <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
                   {course}
                 </li>
               ))}
+              {hasMoreCourses && (
+                <li className="text-sm text-blue-600 mt-1 italic">
+                  +{career.courses.length - 4} more courses available
+                </li>
+              )}
             </ul>
           </div>
 
@@ -88,15 +101,20 @@ const CareerCard: React.FC<CareerCardProps> = ({ career, rank }) => {
             <div className="mb-4">
               <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-2 flex items-center">
                 <Briefcase size={16} className="mr-2" />
-                Career Options
+                Career Paths
               </h4>
               <ul className="space-y-1">
-                {career.careerOptions.map((option, index) => (
+                {displayedCareerOptions.map((option, index) => (
                   <li key={index} className="text-gray-700 flex items-center">
                     <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
                     {option}
                   </li>
                 ))}
+                {hasMoreCareerOptions && (
+                  <li className="text-sm text-blue-600 mt-1 italic">
+                    +{career.careerOptions.length - 4} more career options available
+                  </li>
+                )}
               </ul>
             </div>
           )}
@@ -107,7 +125,7 @@ const CareerCard: React.FC<CareerCardProps> = ({ career, rank }) => {
               Learning Resources
             </h4>
             <ul className="space-y-2">
-              {career.resources.map((resource, index) => {
+              {displayedResources.map((resource, index) => {
                 const Icon = typeIcons[resource.type];
                 return (
                   <li key={index} className="hover-scale">
@@ -119,6 +137,7 @@ const CareerCard: React.FC<CareerCardProps> = ({ career, rank }) => {
                     >
                       <Icon size={16} className="text-blue-500 mr-2" />
                       <span className="text-gray-900">{resource.title}</span>
+                      <ExternalLink size={14} className="ml-2 text-gray-400" />
                       <span className="ml-auto text-xs px-2 py-1 rounded-full bg-gray-200 text-gray-700">
                         {resource.type}
                       </span>
