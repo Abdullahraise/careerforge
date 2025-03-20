@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../context/QuizContext';
@@ -36,10 +35,7 @@ const Quiz = () => {
 
   const handleStreamSelect = (stream: Stream) => {
     setSelectedStream(stream);
-  };
-
-  const handleStartQuiz = () => {
-    startQuiz();
+    startQuiz(); // Start quiz immediately after selecting a stream
   };
 
   const handleAnswerQuestion = (value: number) => {
@@ -134,11 +130,11 @@ const Quiz = () => {
               Choose the academic stream you're currently pursuing or interested in to get personalized career recommendations.
             </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {(['Bio-Comp', 'Bio-Maths', 'Comp-Maths', 'Commerce', 'Arts'] as Stream[]).map((stream) => (
                 <button
                   key={stream}
-                  className={`p-6 rounded-xl border-2 transition-all ${
+                  className={`p-6 rounded-xl border-2 transition-all hover-scale ${
                     selectedStream === stream
                       ? 'border-blue-500 bg-blue-50 shadow-md'
                       : 'border-gray-200 hover:border-blue-200 hover:bg-blue-50/50'
@@ -153,19 +149,6 @@ const Quiz = () => {
                   <h3 className="font-semibold text-lg text-center">{stream}</h3>
                 </button>
               ))}
-            </div>
-            
-            <div className="flex justify-center">
-              <button
-                className={`button-gradient rounded-lg px-8 py-4 font-semibold shadow-lg shadow-blue-200 flex items-center justify-center ${
-                  !selectedStream ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
-                onClick={handleStartQuiz}
-                disabled={!selectedStream}
-              >
-                Start Career Quiz
-                <ArrowRight className="ml-2" size={18} />
-              </button>
             </div>
           </div>
         )}
@@ -244,4 +227,3 @@ const Quiz = () => {
 };
 
 export default Quiz;
-

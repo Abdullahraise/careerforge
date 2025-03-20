@@ -23,7 +23,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
     return () => clearTimeout(timer);
   }, [question.id, selectedValue]);
 
-  const handleChange = (newValue: number) => {
+  const handleOptionSelect = (newValue: number) => {
     setValue(newValue);
     onAnswer(newValue);
   };
@@ -41,36 +41,34 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
       <h3 className="text-xl font-semibold text-gray-900 mb-6">{question.question}</h3>
       
       <div className="mb-6">
-        <input 
-          type="range"
-          min="1"
-          max="5"
-          step="1"
-          value={value}
-          onChange={(e) => handleChange(parseInt(e.target.value))}
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500"
-        />
-        
-        <div className="flex justify-between px-1 mt-2">
+        <div className="grid grid-cols-5 gap-2">
           {labels.map((label, index) => (
-            <div 
-              key={index} 
-              className={`text-xs text-center ${value === index + 1 ? 'text-blue-600 font-medium' : 'text-gray-500'}`}
-              style={{ width: '20%' }}
+            <button
+              key={index}
+              className={`flex flex-col items-center justify-center p-3 border-2 rounded-lg transition-all ${
+                value === index + 1
+                  ? 'border-blue-500 bg-blue-50 shadow-md'
+                  : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50/50'
+              }`}
+              onClick={() => handleOptionSelect(index + 1)}
             >
-              {label}
-            </div>
+              <div className="text-3xl mb-2">
+                {index === 0 && '😐'}
+                {index === 1 && '🙂'}
+                {index === 2 && '😊'}
+                {index === 3 && '😄'}
+                {index === 4 && '🤩'}
+              </div>
+              <span className={`text-sm ${value === index + 1 ? 'text-blue-600 font-medium' : 'text-gray-600'}`}>
+                {label}
+              </span>
+            </button>
           ))}
         </div>
       </div>
       
-      <div className="flex justify-between items-center">
-        <div className="text-sm text-gray-500">
-          Drag the slider to indicate your preference
-        </div>
-        <div className="text-sm font-medium text-blue-600">
-          Selected: {labels[value - 1]}
-        </div>
+      <div className="text-sm text-gray-500">
+        Click on an option above to indicate your preference
       </div>
     </div>
   );
