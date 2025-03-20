@@ -122,7 +122,7 @@ export const careerRecommendations: CareerRecommendation[] = [
     id: 1,
     title: "Software Engineer",
     description: "Design, develop, and maintain software systems and applications that power our digital world.",
-    streams: ['Science'],
+    streams: ['Bio-Comp', 'Comp-Maths'],
     aspects: {
       logical: 0.9,
       analytical: 0.8,
@@ -157,7 +157,7 @@ export const careerRecommendations: CareerRecommendation[] = [
     id: 2,
     title: "Data Scientist",
     description: "Analyze complex datasets to extract insights and help organizations make data-driven decisions.",
-    streams: ['Science'],
+    streams: ['Bio-Comp', 'Comp-Maths', 'Bio-Maths'],
     aspects: {
       analytical: 0.9,
       logical: 0.8,
@@ -262,7 +262,7 @@ export const careerRecommendations: CareerRecommendation[] = [
     id: 5,
     title: "Psychologist",
     description: "Study human behavior and mental processes to help people overcome challenges and improve wellbeing.",
-    streams: ['Arts', 'Science'],
+    streams: ['Arts', 'Bio-Comp'],
     aspects: {
       social: 0.9,
       analytical: 0.8,
@@ -332,7 +332,7 @@ export const careerRecommendations: CareerRecommendation[] = [
     id: 7,
     title: "Doctor/Physician",
     description: "Diagnose and treat illnesses, injuries, and other health conditions in patients.",
-    streams: ['Science'],
+    streams: ['Bio-Comp', 'Bio-Maths'],
     aspects: {
       analytical: 0.9,
       practical: 0.9,
@@ -437,7 +437,7 @@ export const careerRecommendations: CareerRecommendation[] = [
     id: 10,
     title: "Civil Engineer",
     description: "Design, build, and maintain infrastructure projects such as buildings, roads, bridges, and water systems.",
-    streams: ['Science'],
+    streams: ['Comp-Maths', 'Bio-Maths'],
     aspects: {
       practical: 0.9,
       analytical: 0.8,
