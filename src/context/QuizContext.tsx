@@ -21,6 +21,8 @@ interface QuizContextType {
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
+const QUESTIONS_PER_STREAM = 15;
+
 export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedStream, setSelectedStream] = useState<Stream | null>(null);
@@ -35,7 +37,26 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const filteredQuestions = quizQuestions.filter(
         q => q.streams.includes(selectedStream)
       );
-      setQuestionsForStream(filteredQuestions);
+      
+      let finalQuestions: QuizData[] = [];
+      
+      if (filteredQuestions.length >= QUESTIONS_PER_STREAM) {
+        const shuffled = [...filteredQuestions].sort(() => 0.5 - Math.random());
+        finalQuestions = shuffled.slice(0, QUESTIONS_PER_STREAM);
+      } else {
+        finalQuestions = [...filteredQuestions];
+        
+        const remainingQuestions = quizQuestions
+          .filter(q => !q.streams.includes(selectedStream))
+          .sort(() => 0.5 - Math.random())
+          .slice(0, QUESTIONS_PER_STREAM - filteredQuestions.length);
+          
+        finalQuestions = [...finalQuestions, ...remainingQuestions];
+      }
+      
+      finalQuestions.sort((a, b) => a.id - b.id);
+      
+      setQuestionsForStream(finalQuestions);
     } else {
       setQuestionsForStream(null);
     }

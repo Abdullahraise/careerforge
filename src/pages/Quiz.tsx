@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../context/QuizContext';
@@ -130,6 +129,7 @@ const Quiz = () => {
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 text-center">Select Your Academic Stream</h2>
             <p className="text-gray-600 mb-8 text-center">
               Choose the academic stream you're currently pursuing or interested in to get personalized career recommendations.
+              <span className="block mt-2 font-medium text-blue-600">Each stream quiz contains 15 questions to assess your preferences.</span>
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -161,8 +161,8 @@ const Quiz = () => {
             <div className="mb-8">
               <div className="flex items-center justify-between mb-2">
                 <h2 className="text-2xl font-bold text-gray-900">Career Assessment Quiz</h2>
-                <div className="text-sm font-medium text-gray-500">
-                  Question {currentQuestion + 1} of {questionsForStream.length}
+                <div className="text-sm font-medium text-blue-600 px-3 py-1 bg-blue-50 rounded-full">
+                  Question {currentQuestion + 1} of 15
                 </div>
               </div>
               
