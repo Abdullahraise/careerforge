@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../context/QuizContext';
@@ -26,12 +27,13 @@ const Quiz = () => {
 
   const [transitioning, setTransitioning] = useState(false);
 
-  // Redirect to home if no stream is selected
+  // Only redirect if the user navigates directly to /results without completing the quiz
   useEffect(() => {
     if (!quizStarted && !selectedStream) {
-      navigate('/', { replace: true });
+      // This is the intended behavior - show stream selection
+      console.log("Showing stream selection");
     }
-  }, [quizStarted, selectedStream, navigate]);
+  }, [quizStarted, selectedStream]);
 
   const handleStreamSelect = (stream: Stream) => {
     setSelectedStream(stream);

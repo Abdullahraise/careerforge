@@ -123,14 +123,12 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const resetQuiz = () => {
-    if (quizStarted || quizCompleted || selectedStream !== null) {
-      setCurrentQuestion(0);
-      setSelectedStream(null);
-      setAnswers({});
-      setQuizStarted(false);
-      setQuizCompleted(false);
-      setRecommendations(null);
-    }
+    setCurrentQuestion(0);
+    setSelectedStream(null);
+    setAnswers({});
+    setQuizStarted(false);
+    setQuizCompleted(false);
+    setRecommendations(null);
   };
 
   return (
