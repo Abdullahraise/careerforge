@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../context/QuizContext';
@@ -36,6 +37,9 @@ const Quiz = () => {
   const handleStreamSelect = (stream: Stream) => {
     setSelectedStream(stream);
     startQuiz(); // Start quiz immediately after selecting a stream
+    
+    // Ensure we stay on the quiz page after selecting a stream
+    navigate('/quiz', { replace: true });
   };
 
   const handleAnswerQuestion = (value: number) => {
