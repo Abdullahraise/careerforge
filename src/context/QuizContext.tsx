@@ -49,6 +49,7 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setQuizStarted(true);
     setCurrentQuestion(0);
     setAnswers({});
+    setQuizCompleted(false);
   };
 
   const answerQuestion = (questionId: number, answerValue: number) => {
@@ -122,12 +123,14 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const resetQuiz = () => {
-    setCurrentQuestion(0);
-    setSelectedStream(null);
-    setAnswers({});
-    setQuizStarted(false);
-    setQuizCompleted(false);
-    setRecommendations(null);
+    if (quizStarted || quizCompleted || selectedStream !== null) {
+      setCurrentQuestion(0);
+      setSelectedStream(null);
+      setAnswers({});
+      setQuizStarted(false);
+      setQuizCompleted(false);
+      setRecommendations(null);
+    }
   };
 
   return (

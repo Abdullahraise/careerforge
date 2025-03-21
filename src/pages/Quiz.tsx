@@ -27,19 +27,16 @@ const Quiz = () => {
 
   const [transitioning, setTransitioning] = useState(false);
 
-  // Redirect to results if the user tries to access the quiz after completion
+  // Redirect to home if no stream is selected
   useEffect(() => {
-    if (quizStarted && !questionsForStream) {
-      navigate('/');
+    if (!quizStarted && !selectedStream) {
+      navigate('/', { replace: true });
     }
-  }, [quizStarted, questionsForStream, navigate]);
+  }, [quizStarted, selectedStream, navigate]);
 
   const handleStreamSelect = (stream: Stream) => {
     setSelectedStream(stream);
     startQuiz(); // Start quiz immediately after selecting a stream
-    
-    // Ensure we stay on the quiz page after selecting a stream
-    navigate('/quiz', { replace: true });
   };
 
   const handleAnswerQuestion = (value: number) => {
@@ -143,7 +140,11 @@ const Quiz = () => {
                       ? 'border-blue-500 bg-blue-50 shadow-md'
                       : 'border-gray-200 hover:border-blue-200 hover:bg-blue-50/50'
                   }`}
-                  onClick={() => handleStreamSelect(stream)}
+                  onClick={() => {
+                    handleStreamSelect(stream);
+                    // Force navigation to stay on quiz page after stream selection
+                    navigate('/quiz', { replace: true });
+                  }}
                 >
                   <div className="flex justify-center items-center h-12 mb-4">
                     <div className={`w-12 h-12 ${streamIcons[stream].bg} rounded-full flex items-center justify-center`}>
