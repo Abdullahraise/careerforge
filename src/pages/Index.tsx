@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useQuiz } from '../context/QuizContext';
 import { ArrowRight, BookOpen, Award, LineChart, Compass } from 'lucide-react';
 import Header from '../components/Header';
@@ -7,6 +7,7 @@ import Header from '../components/Header';
 const Index = () => {
   const { resetQuiz } = useQuiz();
   const howItWorksRef = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     resetQuiz();
@@ -14,6 +15,11 @@ const Index = () => {
 
   const scrollToHowItWorks = () => {
     howItWorksRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleStartQuiz = () => {
+    resetQuiz();
+    navigate('/quiz');
   };
 
   return (
@@ -37,14 +43,13 @@ const Index = () => {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link
-                    to="/quiz"
+                  <button
+                    onClick={handleStartQuiz}
                     className="button-gradient rounded-lg px-8 py-4 text-center font-semibold shadow-lg shadow-blue-200 flex items-center justify-center"
-                    onClick={() => resetQuiz()}
                   >
                     Start Career Quiz
                     <ArrowRight className="ml-2" size={18} />
-                  </Link>
+                  </button>
                   
                   <button 
                     className="border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 rounded-lg px-8 py-4 text-center font-semibold transition-colors"

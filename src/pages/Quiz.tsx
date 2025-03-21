@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../context/QuizContext';
@@ -140,11 +139,7 @@ const Quiz = () => {
                       ? 'border-blue-500 bg-blue-50 shadow-md'
                       : 'border-gray-200 hover:border-blue-200 hover:bg-blue-50/50'
                   }`}
-                  onClick={() => {
-                    handleStreamSelect(stream);
-                    // Force navigation to stay on quiz page after stream selection
-                    navigate('/quiz', { replace: true });
-                  }}
+                  onClick={() => handleStreamSelect(stream)}
                 >
                   <div className="flex justify-center items-center h-12 mb-4">
                     <div className={`w-12 h-12 ${streamIcons[stream].bg} rounded-full flex items-center justify-center`}>
