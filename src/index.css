@@ -188,3 +188,46 @@
 .animate-slide-down {
   animation: slide-down 0.2s ease-out forwards;
 }
+
+/* Mobile view improvements */
+@media (max-width: 768px) {
+  .container {
+    @apply px-4;
+  }
+  
+  /* Adjust spacing for mobile */
+  section {
+    @apply py-8;
+  }
+  
+  /* Fix for mobile menu alignment */
+  .mobile-menu-item {
+    @apply w-full flex items-center px-4;
+  }
+  
+  /* Ensure text doesn't overflow on mobile */
+  h1 {
+    @apply text-3xl;
+  }
+  
+  h2 {
+    @apply text-2xl;
+  }
+  
+  /* Add space at the bottom on mobile */
+  .mobile-pb {
+    @apply pb-20;
+  }
+  
+  /* Ensure proper spacing in grid items on mobile */
+  .grid {
+    @apply gap-4;
+  }
+}
+
+/* Fix mobile header padding */
+@media (max-width: 640px) {
+  header .container {
+    @apply py-2;
+  }
+}

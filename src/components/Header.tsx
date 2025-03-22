@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, BarChart, Sparkles, X } from 'lucide-react';
+import { Home, BookOpen, BarChart, Sparkles, Menu, X } from 'lucide-react';
 
 const Header = () => {
   const location = useLocation();
@@ -50,28 +50,24 @@ const Header = () => {
           })}
         </nav>
         
-        <div className="md:hidden">
-          <button 
-            onClick={toggleMobileMenu}
-            aria-label="Toggle menu"
-            className="p-2 rounded-md text-gray-500 hover:text-purple-500 hover:bg-gray-100 focus:outline-none"
-          >
-            {mobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
-        </div>
+        <button 
+          onClick={toggleMobileMenu}
+          aria-label="Toggle menu"
+          className="p-2 rounded-md text-gray-500 hover:text-purple-500 hover:bg-gray-100 focus:outline-none md:hidden"
+        >
+          {mobileMenuOpen ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <Menu className="h-6 w-6" />
+          )}
+        </button>
       </div>
       
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-indigo-100 shadow-lg animate-slide-down">
-          <div className="container mx-auto px-4 py-3">
-            <nav className="flex flex-col space-y-3">
+        <div className="md:hidden absolute top-full left-0 right-0 w-full bg-white border-b border-indigo-100 shadow-lg animate-slide-down">
+          <div className="container mx-auto px-4 py-2">
+            <nav className="flex flex-col space-y-1">
               {links.map((link) => {
                 const isActive = location.pathname === link.path;
                 return (
@@ -79,7 +75,7 @@ const Header = () => {
                     key={link.path}
                     to={link.path}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center space-x-2 p-3 rounded-md transition-all duration-200 ${
+                    className={`flex items-center space-x-3 p-3 rounded-md transition-all duration-200 ${
                       isActive
                         ? 'bg-purple-50 text-purple-600'
                         : 'text-gray-600 hover:text-purple-500 hover:bg-purple-50'
