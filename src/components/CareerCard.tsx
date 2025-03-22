@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { CareerRecommendation } from '../data/quizData';
-import { ChevronDown, ChevronUp, BookOpen, Globe, PlayCircle, Briefcase, GraduationCap, ExternalLink } from 'lucide-react';
+import { ChevronDown, ChevronUp, BookOpen, Globe, PlayCircle, Briefcase, GraduationCap, ExternalLink, Star } from 'lucide-react';
 
 interface CareerCardProps {
   career: CareerRecommendation;
@@ -26,126 +26,144 @@ const CareerCard: React.FC<CareerCardProps> = ({ career, rank }) => {
     ? Math.round(career.matchScore * 100) 
     : 75 + Math.floor(Math.random() * 20); // Fallback if no score
   
-  // Limit the number of displayed items
-  const displayedCourses = career.courses.slice(0, 4);
-  const displayedCareerOptions = career.careerOptions.slice(0, 4);
-  const displayedResources = career.resources.slice(0, 3);
-  
-  const hasMoreCourses = career.courses.length > 4;
-  const hasMoreCareerOptions = career.careerOptions.length > 4;
+  // Get top course and career option for preview
+  const topCourse = career.courses[0];
+  const topCareerOption = career.careerOptions[0];
   
   return (
     <div 
-      className={`glass-card rounded-xl overflow-hidden transition-all duration-300 ${
-        expanded ? 'shadow-md' : 'shadow-sm hover:shadow-md'
+      className={`bg-white rounded-xl overflow-hidden transition-all duration-300 border ${
+        expanded ? 'shadow-md border-blue-200' : 'shadow-sm border-gray-100 hover:border-blue-100'
       }`}
     >
-      <div 
-        className="p-6 cursor-pointer flex justify-between items-start"
-        onClick={toggleExpand}
-      >
-        <div className="flex items-start space-x-4">
-          <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">
-            #{rank}
+      <div className="p-5 cursor-pointer" onClick={toggleExpand}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            {rank <= 3 && (
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                rank === 1 ? 'bg-yellow-100 text-yellow-600' : 
+                rank === 2 ? 'bg-gray-100 text-gray-600' : 
+                'bg-orange-100 text-orange-600'
+              }`}>
+                <Star size={18} fill={rank <= 3 ? "currentColor" : "none"} />
+              </div>
+            )}
+            {rank > 3 && (
+              <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 font-medium">
+                #{rank}
+              </div>
+            )}
+            
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900">{career.title}</h3>
+              <div className="flex items-center mt-1">
+                <div className="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div 
+                    className={`h-full rounded-full ${matchPercentage >= 90 ? 'bg-green-500' : 'bg-blue-500'}`}
+                    style={{ width: `${matchPercentage}%` }}
+                  />
+                </div>
+                <span className="ml-2 text-sm font-medium text-gray-700">{matchPercentage}% Match</span>
+              </div>
+            </div>
           </div>
           
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900">{career.title}</h3>
-            <p className="text-gray-600 mt-1">{career.description}</p>
-            
-            <div className="mt-3 flex items-center">
-              <div className="text-sm font-medium text-gray-900">Match Score:</div>
-              <div className="ml-2 w-24 h-2 bg-gray-200 rounded-full">
-                <div 
-                  className="h-full rounded-full bg-gradient-to-r from-blue-400 to-blue-600"
-                  style={{ width: `${matchPercentage}%` }}
-                ></div>
+          <div className="flex items-center">
+            {!expanded && (
+              <div className="hidden md:flex items-center mr-4 text-sm text-gray-500">
+                <GraduationCap size={16} className="mr-1 text-blue-500" />
+                <span className="truncate max-w-[120px]">{topCourse}</span>
               </div>
-              <div className="ml-2 text-sm font-medium text-blue-600">{matchPercentage}%</div>
-            </div>
+            )}
+            {expanded ? (
+              <ChevronUp className="text-gray-400" size={20} />
+            ) : (
+              <ChevronDown className="text-gray-400" size={20} />
+            )}
           </div>
         </div>
         
-        <div>
-          {expanded ? (
-            <ChevronUp className="text-gray-500" />
-          ) : (
-            <ChevronDown className="text-gray-500" />
-          )}
-        </div>
+        {!expanded && (
+          <p className="text-gray-600 mt-2 text-sm line-clamp-2">{career.description}</p>
+        )}
       </div>
       
       {expanded && (
-        <div className="px-6 pb-6 pt-2 border-t border-gray-100 animate-slide-down">
-          <div className="mb-4">
-            <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-2 flex items-center">
-              <GraduationCap size={16} className="mr-2" />
-              Top Recommended Courses
-            </h4>
-            <ul className="space-y-1">
-              {displayedCourses.map((course, index) => (
-                <li key={index} className="text-gray-700 flex items-center">
-                  <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-                  {course}
-                </li>
-              ))}
-              {hasMoreCourses && (
-                <li className="text-sm text-blue-600 mt-1 italic">
-                  +{career.courses.length - 4} more courses available
-                </li>
-              )}
-            </ul>
-          </div>
-
-          {career.careerOptions && (
-            <div className="mb-4">
-              <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-2 flex items-center">
-                <Briefcase size={16} className="mr-2" />
-                Career Paths
+        <div className="px-5 pb-5 animate-slide-down">
+          <p className="text-gray-600 mb-4 border-t border-gray-100 pt-3">
+            {career.description}
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div className="bg-blue-50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-800 mb-2 flex items-center">
+                <GraduationCap size={16} className="mr-2 text-blue-600" />
+                Top Courses
               </h4>
-              <ul className="space-y-1">
-                {displayedCareerOptions.map((option, index) => (
-                  <li key={index} className="text-gray-700 flex items-center">
-                    <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                    {option}
+              <ul className="space-y-2">
+                {career.courses.slice(0, 3).map((course, idx) => (
+                  <li key={idx} className="text-gray-700 flex items-start">
+                    <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-1.5"></span>
+                    <span className="text-sm">{course}</span>
                   </li>
                 ))}
-                {hasMoreCareerOptions && (
-                  <li className="text-sm text-blue-600 mt-1 italic">
-                    +{career.careerOptions.length - 4} more career options available
+                {career.courses.length > 3 && (
+                  <li className="text-xs text-blue-600 pl-4">
+                    +{career.courses.length - 3} more courses
                   </li>
                 )}
               </ul>
             </div>
-          )}
+            
+            <div className="bg-green-50 rounded-lg p-4">
+              <h4 className="font-semibold text-gray-800 mb-2 flex items-center">
+                <Briefcase size={16} className="mr-2 text-green-600" />
+                Career Paths
+              </h4>
+              <ul className="space-y-2">
+                {career.careerOptions.slice(0, 3).map((option, idx) => (
+                  <li key={idx} className="text-gray-700 flex items-start">
+                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 mt-1.5"></span>
+                    <span className="text-sm">{option}</span>
+                  </li>
+                ))}
+                {career.careerOptions.length > 3 && (
+                  <li className="text-xs text-green-600 pl-4">
+                    +{career.careerOptions.length - 3} more options
+                  </li>
+                )}
+              </ul>
+            </div>
+          </div>
           
           <div>
-            <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-2 flex items-center">
-              <BookOpen size={16} className="mr-2" />
+            <h4 className="font-semibold text-gray-800 mb-2 flex items-center">
+              <BookOpen size={16} className="mr-2 text-purple-600" />
               Learning Resources
             </h4>
-            <ul className="space-y-2">
-              {displayedResources.map((resource, index) => {
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              {career.resources.map((resource, idx) => {
                 const Icon = typeIcons[resource.type];
+                const bgColors = {
+                  article: 'bg-blue-50 hover:bg-blue-100 text-blue-700',
+                  video: 'bg-red-50 hover:bg-red-100 text-red-700',
+                  course: 'bg-purple-50 hover:bg-purple-100 text-purple-700',
+                };
                 return (
-                  <li key={index} className="hover-scale">
-                    <a 
-                      href={resource.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center p-2 rounded-lg bg-gray-50 hover:bg-blue-50 transition-colors"
-                    >
-                      <Icon size={16} className="text-blue-500 mr-2" />
-                      <span className="text-gray-900">{resource.title}</span>
-                      <ExternalLink size={14} className="ml-2 text-gray-400" />
-                      <span className="ml-auto text-xs px-2 py-1 rounded-full bg-gray-200 text-gray-700">
-                        {resource.type}
-                      </span>
-                    </a>
-                  </li>
+                  <a
+                    key={idx}
+                    href={resource.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex items-center p-2 rounded-md text-sm ${bgColors[resource.type]} transition-colors`}
+                  >
+                    <Icon size={14} className="mr-1 flex-shrink-0" />
+                    <span className="truncate">{resource.title}</span>
+                    <ExternalLink size={12} className="ml-1 flex-shrink-0" />
+                  </a>
                 );
               })}
-            </ul>
+            </div>
           </div>
         </div>
       )}
