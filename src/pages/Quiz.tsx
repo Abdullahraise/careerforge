@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../context/QuizContext';
@@ -6,6 +7,7 @@ import Header from '../components/Header';
 import ProgressBar from '../components/ProgressBar';
 import QuizQuestion from '../components/QuizQuestion';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { useIsMobile } from '../hooks/use-mobile';
 
 const Quiz = () => {
   const navigate = useNavigate();
@@ -25,6 +27,7 @@ const Quiz = () => {
   } = useQuiz();
 
   const [transitioning, setTransitioning] = useState(false);
+  const isMobile = useIsMobile();
 
   // Only redirect if the user navigates directly to /results without completing the quiz
   useEffect(() => {
@@ -122,33 +125,33 @@ const Quiz = () => {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <Header />
       
-      <div className="container mx-auto max-w-3xl px-4 pt-32 pb-16">
+      <div className="container mx-auto max-w-3xl px-4 pt-24 md:pt-32 pb-12 md:pb-16">
         {/* Stream Selection */}
         {!quizStarted && (
-          <div className="glass-card rounded-xl p-8 animate-scale-in">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 text-center">Select Your Academic Stream</h2>
-            <p className="text-gray-600 mb-8 text-center">
+          <div className="glass-card rounded-xl p-4 md:p-8 animate-scale-in">
+            <h2 className="text-xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-6 text-center">Select Your Academic Stream</h2>
+            <p className="text-sm md:text-base text-gray-600 mb-6 md:mb-8 text-center">
               Choose the academic stream you're currently pursuing or interested in to get personalized career recommendations.
               <span className="block mt-2 font-medium text-blue-600">Each stream quiz contains 15 questions to assess your preferences.</span>
             </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {(['Bio-Comp', 'Bio-Maths', 'Comp-Maths', 'Commerce', 'Arts'] as Stream[]).map((stream) => (
                 <button
                   key={stream}
-                  className={`p-6 rounded-xl border-2 transition-all hover-scale ${
+                  className={`p-4 md:p-6 rounded-xl border-2 transition-all hover-scale ${
                     selectedStream === stream
                       ? 'border-blue-500 bg-blue-50 shadow-md'
                       : 'border-gray-200 hover:border-blue-200 hover:bg-blue-50/50'
                   }`}
                   onClick={() => handleStreamSelect(stream)}
                 >
-                  <div className="flex justify-center items-center h-12 mb-4">
+                  <div className="flex justify-center items-center h-12 mb-3 md:mb-4">
                     <div className={`w-12 h-12 ${streamIcons[stream].bg} rounded-full flex items-center justify-center`}>
                       {streamIcons[stream].icon}
                     </div>
                   </div>
-                  <h3 className="font-semibold text-lg text-center">{stream}</h3>
+                  <h3 className="font-semibold text-base md:text-lg text-center">{stream}</h3>
                 </button>
               ))}
             </div>
@@ -158,10 +161,10 @@ const Quiz = () => {
         {/* Quiz Questions */}
         {quizStarted && questionsForStream && (
           <div className="animate-fade-in">
-            <div className="mb-8">
+            <div className="mb-6 md:mb-8">
               <div className="flex items-center justify-between mb-2">
-                <h2 className="text-2xl font-bold text-gray-900">Career Assessment Quiz</h2>
-                <div className="text-sm font-medium text-blue-600 px-3 py-1 bg-blue-50 rounded-full">
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900">Career Assessment Quiz</h2>
+                <div className="text-xs md:text-sm font-medium text-blue-600 px-3 py-1 bg-blue-50 rounded-full">
                   Question {currentQuestion + 1} of 15
                 </div>
               </div>
@@ -179,46 +182,95 @@ const Quiz = () => {
               )}
             </div>
             
-            <div className="mt-8 flex justify-between">
-              <button
-                className={`flex items-center px-6 py-3 rounded-lg border border-gray-300 bg-white text-gray-700 font-medium transition-colors ${
-                  currentQuestion === 0
-                    ? 'opacity-50 cursor-not-allowed'
-                    : 'hover:bg-gray-50'
-                }`}
-                onClick={handlePrevQuestion}
-                disabled={currentQuestion === 0}
-              >
-                <ArrowLeft className="mr-2" size={18} />
-                Previous
-              </button>
-              
-              {isLastQuestion ? (
-                <button
-                  className={`button-gradient rounded-lg px-6 py-3 font-medium shadow-md shadow-blue-200 flex items-center ${
-                    currentAnswer === undefined
-                      ? 'opacity-50 cursor-not-allowed'
-                      : ''
-                  }`}
-                  onClick={handleCompleteQuiz}
-                  disabled={currentAnswer === undefined}
-                >
-                  Complete Quiz
-                  <Check className="ml-2" size={18} />
-                </button>
+            <div className="mt-6 md:mt-8 flex justify-between">
+              {isMobile ? (
+                // Mobile navigation buttons
+                <div className="w-full flex justify-between gap-2">
+                  <button
+                    className={`flex items-center justify-center px-3 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 font-medium transition-colors ${
+                      currentQuestion === 0
+                        ? 'opacity-50 cursor-not-allowed'
+                        : 'hover:bg-gray-50'
+                    }`}
+                    onClick={handlePrevQuestion}
+                    disabled={currentQuestion === 0}
+                  >
+                    <ArrowLeft className="mr-1" size={16} />
+                    <span>Prev</span>
+                  </button>
+                  
+                  {isLastQuestion ? (
+                    <button
+                      className={`button-gradient rounded-lg px-3 py-2 font-medium shadow-md shadow-blue-200 flex items-center ${
+                        currentAnswer === undefined
+                          ? 'opacity-50 cursor-not-allowed'
+                          : ''
+                      }`}
+                      onClick={handleCompleteQuiz}
+                      disabled={currentAnswer === undefined}
+                    >
+                      <span>Complete</span>
+                      <Check className="ml-1" size={16} />
+                    </button>
+                  ) : (
+                    <button
+                      className={`button-gradient rounded-lg px-3 py-2 font-medium shadow-md shadow-blue-200 flex items-center ${
+                        currentAnswer === undefined
+                          ? 'opacity-50 cursor-not-allowed'
+                          : ''
+                      }`}
+                      onClick={handleNextQuestion}
+                      disabled={currentAnswer === undefined}
+                    >
+                      <span>Next</span>
+                      <ArrowRight className="ml-1" size={16} />
+                    </button>
+                  )}
+                </div>
               ) : (
-                <button
-                  className={`button-gradient rounded-lg px-6 py-3 font-medium shadow-md shadow-blue-200 flex items-center ${
-                    currentAnswer === undefined
-                      ? 'opacity-50 cursor-not-allowed'
-                      : ''
-                  }`}
-                  onClick={handleNextQuestion}
-                  disabled={currentAnswer === undefined}
-                >
-                  Next Question
-                  <ArrowRight className="ml-2" size={18} />
-                </button>
+                // Desktop navigation buttons
+                <>
+                  <button
+                    className={`flex items-center px-6 py-3 rounded-lg border border-gray-300 bg-white text-gray-700 font-medium transition-colors ${
+                      currentQuestion === 0
+                        ? 'opacity-50 cursor-not-allowed'
+                        : 'hover:bg-gray-50'
+                    }`}
+                    onClick={handlePrevQuestion}
+                    disabled={currentQuestion === 0}
+                  >
+                    <ArrowLeft className="mr-2" size={18} />
+                    Previous
+                  </button>
+                  
+                  {isLastQuestion ? (
+                    <button
+                      className={`button-gradient rounded-lg px-6 py-3 font-medium shadow-md shadow-blue-200 flex items-center ${
+                        currentAnswer === undefined
+                          ? 'opacity-50 cursor-not-allowed'
+                          : ''
+                      }`}
+                      onClick={handleCompleteQuiz}
+                      disabled={currentAnswer === undefined}
+                    >
+                      Complete Quiz
+                      <Check className="ml-2" size={18} />
+                    </button>
+                  ) : (
+                    <button
+                      className={`button-gradient rounded-lg px-6 py-3 font-medium shadow-md shadow-blue-200 flex items-center ${
+                        currentAnswer === undefined
+                          ? 'opacity-50 cursor-not-allowed'
+                          : ''
+                      }`}
+                      onClick={handleNextQuestion}
+                      disabled={currentAnswer === undefined}
+                    >
+                      Next Question
+                      <ArrowRight className="ml-2" size={18} />
+                    </button>
+                  )}
+                </>
               )}
             </div>
           </div>
