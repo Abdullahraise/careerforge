@@ -1,7 +1,8 @@
+
 import React, { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuiz } from '../context/QuizContext';
-import { ArrowRight, BookOpen, Award, LineChart, Compass } from 'lucide-react';
+import { ArrowRight, BookOpen, Award, LineChart, Compass, Star } from 'lucide-react';
 import Header from '../components/Header';
 
 const Index = () => {
@@ -188,21 +189,21 @@ const Index = () => {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">CG</span>
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center">
+                  <Compass className="text-white" size={16} />
                 </div>
-                <span className="font-display font-semibold text-lg text-gray-900">CareerGuide</span>
+                <span className="font-display font-semibold text-lg text-gray-900">Future Forge</span>
               </div>
             </div>
             
             <div className="text-sm text-gray-500">
-              © {new Date().getFullYear()} CareerGuide. All rights reserved.
+              © {new Date().getFullYear()} Future Forge. All rights reserved.
             </div>
             
             <div className="flex space-x-4 mt-4 md:mt-0">
-              <a href="#" className="text-gray-500 hover:text-blue-600">Privacy</a>
-              <a href="#" className="text-gray-500 hover:text-blue-600">Terms</a>
-              <a href="#" className="text-gray-500 hover:text-blue-600">Contact</a>
+              <a href="#" className="text-gray-500 hover:text-purple-600">Privacy</a>
+              <a href="#" className="text-gray-500 hover:text-purple-600">Terms</a>
+              <a href="#" className="text-gray-500 hover:text-purple-600">Contact</a>
             </div>
           </div>
         </div>

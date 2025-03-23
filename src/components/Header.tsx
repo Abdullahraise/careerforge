@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, BarChart, Sparkles, Menu, X } from 'lucide-react';
+import { Sparkles, Home, BookOpen, BarChart, Menu, X, Compass, Star } from 'lucide-react';
 
 const Header = () => {
   const location = useLocation();
@@ -21,12 +21,14 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-indigo-100 shadow-sm">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <Link to="/" className="flex items-center space-x-2 group">
-          <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-indigo-700 rounded-lg flex items-center justify-center transform group-hover:rotate-3 transition-all duration-300 shadow-md">
-            <Sparkles className="text-white" size={20} />
+          <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center transform group-hover:scale-105 transition-all duration-300 shadow-md">
+            <Compass className="text-white" size={20} strokeWidth={2.5} />
           </div>
           <div className="flex flex-col">
-            <span className="font-display font-bold text-xl bg-gradient-to-r from-purple-700 to-indigo-700 bg-clip-text text-transparent">Future Forge</span>
-            <span className="text-xs text-gray-500 -mt-1">Shape your tomorrow</span>
+            <span className="font-display font-bold text-xl bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Future Forge</span>
+            <span className="text-xs text-gray-500 -mt-1 flex items-center">
+              <Star size={10} className="text-amber-400 mr-1" fill="currentColor" /> Shape your tomorrow
+            </span>
           </div>
         </Link>
         
