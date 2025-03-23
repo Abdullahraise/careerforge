@@ -4,14 +4,25 @@ import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../context/QuizContext';
 import Header from '../components/Header';
 import CareerCard from '../components/CareerCard';
-import { ArrowRight, RefreshCcw, Trophy, BookOpen, Star, Filter, Sparkles } from 'lucide-react';
+import { ArrowRight, RefreshCcw, Trophy, BookOpen, Star, Filter, Sparkles, AlertCircle } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
 
 const Results = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { quizCompleted, recommendations, selectedStream, resetQuiz } = useQuiz();
+  const { quizCompleted, recommendations, selectedStream, resetQuiz, answers } = useQuiz();
   const [filterType, setFilterType] = useState<'all' | 'match' | 'popular'>('match');
+
+  // Check if user had very low interest (mostly 1-2 ratings)
+  const hasLowInterest = React.useMemo(() => {
+    if (!answers) return false;
+    
+    const answerValues = Object.values(answers);
+    if (answerValues.length === 0) return false;
+    
+    const lowAnswers = answerValues.filter(v => v <= 2);
+    return lowAnswers.length / answerValues.length >= 0.7; // 70% of answers are low interest
+  }, [answers]);
 
   // Redirect if the user tries to access results without completing the quiz
   useEffect(() => {
@@ -22,13 +33,27 @@ const Results = () => {
 
   useEffect(() => {
     if (recommendations?.length) {
+      if (hasLowInterest) {
+        toast({
+          title: "Low interest detected",
+          description: "We've noticed you didn't show much interest in these topics. Consider exploring other streams!",
+          duration: 6000,
+        });
+      } else {
+        toast({
+          title: "Your Future Forge paths are ready!",
+          description: `We've discovered ${recommendations.length} career paths aligned with your strengths.`,
+          duration: 5000,
+        });
+      }
+    } else if (quizCompleted) {
       toast({
-        title: "Your Future Forge paths are ready!",
-        description: `We've discovered ${recommendations.length} career paths aligned with your strengths.`,
-        duration: 5000,
+        title: "No strong matches found",
+        description: "Based on your answers, we couldn't find strong matches. Try another stream or retake the quiz!",
+        duration: 6000,
       });
     }
-  }, [recommendations, toast]);
+  }, [recommendations, toast, hasLowInterest, quizCompleted]);
 
   if (!quizCompleted || !recommendations || !selectedStream) {
     return null;
@@ -73,6 +98,20 @@ const Results = () => {
           </div>
         </div>
         
+        {hasLowInterest && (
+          <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3">
+            <AlertCircle className="text-amber-500 flex-shrink-0 mt-0.5" size={20} />
+            <div>
+              <h3 className="font-medium text-amber-800">Low interest detected</h3>
+              <p className="text-sm text-amber-700">
+                Your responses indicate low interest in the {selectedStream} stream. 
+                These recommendations may not be ideal matches.
+                Consider exploring other academic streams to find better-aligned paths.
+              </p>
+            </div>
+          </div>
+        )}
+        
         <div className="flex justify-center mb-6 space-x-2">
           <div className="bg-white/90 backdrop-blur-sm p-3 rounded-lg shadow-sm flex items-center border border-indigo-100 transform hover:scale-101 transition-all duration-300">
             <Filter size={16} className="text-indigo-500 mr-2" />
@@ -110,16 +149,29 @@ const Results = () => {
           </div>
         </div>
         
-        <div className="space-y-5 mb-12">
-          {sortedRecommendations.map((career, index) => (
-            <div key={career.id} 
-              className="animate-fade-in transform hover:translate-x-1 transition-all duration-300" 
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <CareerCard career={career} rank={index + 1} />
+        {sortedRecommendations.length > 0 ? (
+          <div className="space-y-5 mb-12">
+            {sortedRecommendations.map((career, index) => (
+              <div key={career.id} 
+                className="animate-fade-in transform hover:translate-x-1 transition-all duration-300" 
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <CareerCard career={career} rank={index + 1} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center p-10 bg-white/80 rounded-xl shadow-sm border border-indigo-100 mb-12">
+            <div className="text-gray-400 mb-4">
+              <AlertCircle size={48} className="mx-auto" />
             </div>
-          ))}
-        </div>
+            <h3 className="text-xl font-medium text-gray-800 mb-2">No Strong Matches Found</h3>
+            <p className="text-gray-600 mb-4">
+              Based on your responses, we couldn't find any strong career matches in the {selectedStream} stream.
+              We recommend trying another academic stream or retaking the quiz.
+            </p>
+          </div>
+        )}
         
         <div className="flex flex-col md:flex-row gap-5 justify-center items-center">
           <button 
